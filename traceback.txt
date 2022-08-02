@@ -1,0 +1,28 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+  File "game/script.rpy", line 165, in script
+    hide raya norm at left with disolve
+  File "game/script.rpy", line 165, in <module>
+    hide raya norm at left with disolve
+NameError: name 'disolve' is not defined
+
+-- Full Traceback ------------------------------------------------------------
+
+Full traceback:
+  File "game/script.rpy", line 165, in script
+    hide raya norm at left with disolve
+  File "/Users/serj/renpy-7.5.0-sdk/renpy/ast.py", line 1634, in execute
+    paired = renpy.python.py_eval(self.paired)
+  File "/Users/serj/renpy-7.5.0-sdk/renpy/python.py", line 1080, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "/Users/serj/renpy-7.5.0-sdk/renpy/python.py", line 1073, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 165, in <module>
+    hide raya norm at left with disolve
+NameError: name 'disolve' is not defined
+
+Darwin-20.6.0-x86_64-i386-64bit x86_64
+Ren'Py 7.5.0.22062402
+Šukańnie 1.0
+Mon Aug  1 20:46:24 2022
