@@ -33,6 +33,7 @@ init:
     image house now = "house now.png"
     image house past = "house past.png"
     image wedding = "wedding.png"
+    image club past = "club past.png"
 
     # Хочет ли идти Алеся на вечёрку с Яном?
     $ yan_chosen = False
@@ -175,7 +176,7 @@ label yan_offer:
 # Вечерка
 label vech:
 
-    scene club with dissolve
+    scene club past with dissolve
     show alesya norm at left with dissolve
     if yan_chosen:
         show yan norm at right with dissolve
