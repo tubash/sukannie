@@ -4,21 +4,21 @@
 # name of the character.
 
 # Баба Алеся, повествование ведётся от её имени
-define ba = Character("Баба Алеся")
+define ba = Character(_("Баба Алеся"))
 # Дед Николай (в случае, если повествование заканчивается отношениями с ним)
-define dn = Character("Деда Николай")
+define dn = Character(_("Деда Николай"))
 # Дед Ян (в случае, если повествование заканчивается отношениями с ним)
-define dy = Character("Деда Ян")
+define dy = Character(_("Деда Ян"))
 # Мама Алеси (в момент, когда Алеся молодая)
-define ma = Character("Мама Алеси")
+define ma = Character(_("Мама Алеси"))
 # Молодая Алеся
-define alesya = Character("Алеся")
+define alesya = Character(_("Алеся"))
 # Молодая Рая
-define raya = Character("Рая")
+define raya = Character(_("Рая"))
 # Молодой Николай
-define nikolai = Character("Николай")
+define nikolai = Character(_("Николай"))
 # Молодой Ян
-define yan = Character("Ян")
+define yan = Character(_("Ян"))
 
 # (не требует вызова)
 init:
@@ -48,13 +48,13 @@ label splashscreen:
     scene black
     with Pause(1)
 
-    show text "Шуканне представляет..." with dissolve
+    show text _("Шуканне представляет...") with dissolve
     with Pause(2)
 
     hide text with dissolve
     with Pause(1)
 
-    show text "проект 2022 года..." with dissolve
+    show text _("проект 2022 года...") with dissolve
     with Pause(2)
 
     hide text with dissolve
@@ -64,7 +64,7 @@ label splashscreen:
 
 # Начало игры
 label start:
-#    jump credits
+    # jump credits
 
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
@@ -303,17 +303,21 @@ label escape:
 # Появляется при окончании игры (требует вызова)
 # https://lemmasoft.renai.us/forums/viewtopic.php?t=22481
 label credits:
+    $ end_title = _("Конец")
+
     image splash = Text("{size=90}Šukańnie Fest", text_align=0.5, ypos=0.5) #Placeholder code if you don't have anything to use as a splash image or are just pure lazy.
 #    image splash = "images/Company-Logo.png" #This is usually going to be located in an init block executed early in the code to show it when the game loads up as a splash screen.
 #    image cred = Text(credits_s, font="myfont.ttf", text_align=0.5) #use this if you want to use special fonts
 #    image cred = Text(credits_s, font="./fonts/Montserrat-VariableFont_wght.ttf", text_align=0.1)
-    image cred = Text(credits_s, text_align=0.0)
-    image theend = Text("{size=80}Конец", text_align=0.5)
+    $ cred = Text(credits_s, text_align=0.0)
+    #image theend = Text("{size=80}[end_title]", text_align=0.5)
+    $ theend = Text("{size=80}[end_title!t]", text_align=0.5)
 
     $ credits_speed = 25 #scrolling speed in seconds
     scene black #replace this with a fancy background
-    show cred at Move((0.1, 3.0), (0.1, 0.0), credits_speed, repeat=False, bounce=False, xanchor="left", yanchor="bottom")
-    show theend:
+    show expression cred at Move((0.1, 3.0), (0.1, 0.0), credits_speed, repeat=False, bounce=False, xanchor="left", yanchor="bottom")
+    #show theend:
+    show expression theend:
         yanchor 0.5 ypos 0.5
         xanchor 0.5 xpos 0.5
     with dissolve
@@ -332,28 +336,63 @@ label credits:
 # Подготовка кредитов для показа (не требует вызова)
 # https://lemmasoft.renai.us/forums/viewtopic.php?t=22481
 init python:
-    credits = (u'Благодарности', u'EHU, а в особенности Степану Захаркевичу за экспедиционные и житейские советы'),\
-    (u'Благодарности', u'Сергею Харевскому за консультации по деревенским гулянкам и обрядам'),\
-    (u'Благодарности', u'Степану Стурейко за веру и поддержку наших студенческих начинаний'),\
-    (u'Благодарности', u'Алине Деревянко за экскурс в лучшие практики менеджмента культурных проектов'),\
-    (u'Благодарности', u'34mag travel, в особенности Касе Сырамалот за распространение анонсов нашего \n{space=50}мероприятия и теплые слова'),\
-    (u'Благодарности', 'Команде культурного пространства Kablys, в особенности Valda Arbačiauskaitė за то, \n{space=50}что позволила нам провести фест в этих чудесных стенах'),\
-    (u'Команда', u'Полина Лябихова - идейная вдохновительница и менеджерка фестиваля и \n{space=50}культурного онлайн-проекта Šukańnie'),\
-    (u'Команда', u'Аляксандра Навіцкая - консультант, автор проекта Скародзіца'),\
-    (u'Команда', u'Саша Метлицкая - менеджерка фестиваля, кураторка арт блока'),\
-    (u'Команда', u'Аліна Дрожжа – менеджерка проекта онлайн-проекта shukannie, полевая этнографка'),\
-    (u'Команда', u'Рома Енотов – художник, иллюстратор, любитель каласоў'),\
-    (u'Команда', u'Анна Титова-Тубаш – художница, сценограф, консультант по перформативной части'),\
-    (u'Команда', u'Серж Тубаш – междисциплинарный современный художник, исследователь видеоигр'),\
-    (u'Команда', u'Аня Кастюченко - авторка фотовыставки'),\
-    (u'Команда', u'Катя Дорофеева - саунд-художница'),\
-    (u'Команда', u'Яна Веренчук - режиссерка'),\
-    (u'Авторы', u'Анастасия Пастухова'),\
-    (u'Авторы', u'Станислав Турко'),\
-    (u'Авторы', u'Леонид Прусов'),\
-    (u'Авторы', u'Наталья Пухова'),\
-    ('Благодарим наших партнеров', 'Kitchen Coffee Roasters за то, что поддержали нас хрустящими круассанами и вкусным кофе'),\
-    ('Благодарим наших партнеров', 'VEHA за предоставление уникальных архивных кадров и фотокнигу, которую нам удалось \n{space=50}привезти в Вильнюс и разыграть среди участников')
+    
+    thanks_title = _("Благодарности")
+    team_title = _("Команда")
+    authors_title = _("Авторы")
+    partners_title = _("Благодарим наших партнеров")
+
+    thanks_line_1 = _("EHU, а в особенности Степану Захаркевичу за экспедиционные и житейские советы")
+    thanks_line_2 = _("Сергею Харевскому за консультации по деревенским гулянкам и обрядам")
+    thanks_line_3 = _("Степану Стурейко за веру и поддержку наших студенческих начинаний")
+    thanks_line_4 = _("Алине Деревянко за экскурс в лучшие практики менеджмента культурных проектов")
+    thanks_line_5 = _("34mag travel, в особенности Касе Сырамалот за распространение анонсов нашего \n{space=50}мероприятия и теплые слова")
+    thanks_line_6 = _("Команде культурного пространства Kablys, в особенности Valda Arbačiauskaitė за то, \n{space=50}что позволила нам провести фест в этих чудесных стенах")
+    thanks_line_7 = _("Марыі Барысёнак і Зміцеру Макарчуку за дапамогу з перакладам на беларускую мову")
+
+    team_line_1 = _("Полина Лябихова - идейная вдохновительница и менеджерка фестиваля и \n{space=50}культурного онлайн-проекта Šukańnie")
+    team_line_2 = _("Аляксандра Навіцкая - консультант, автор проекта Скародзіца")
+    team_line_3 = _("Саша Метлицкая - менеджерка фестиваля, кураторка арт блока")
+    team_line_4 = _("Аліна Дрожжа – менеджерка проекта онлайн-проекта shukannie, полевая этнографка")
+    team_line_5 = _("Рома Енотов – художник, иллюстратор, любитель каласоў")
+    team_line_6 = _("Анна Титова-Тубаш – художница, сценограф, консультант по перформативной части")
+    team_line_7 = _("Серж Тубаш – междисциплинарный современный художник, исследователь видеоигр")
+    team_line_8 = _("Аня Кастюченко - авторка фотовыставки")
+    team_line_9 = _("Катя Дорофеева - саунд-художница")
+    team_line_10 = _("Яна Веренчук - режиссерка")
+
+    authors_line_1 = _("Анастасия Пастухова")
+    authors_line_2 = _("Станислав Турко")
+    authors_line_3 = _("Леонид Прусов")
+    authors_line_4 = _("Наталья Пухова")
+
+    partners_line_1 = _("Kitchen Coffee Roasters за то, что поддержали нас хрустящими круассанами и вкусным кофе")
+    partners_line_2 = _("VEHA за предоставление уникальных архивных кадров и фотокнигу, которую нам удалось \n{space=50}привезти в Вильнюс и разыграть среди участников")
+
+    credits = ("[thanks_title!t]", "[thanks_line_1!t]"),\
+    ("[thanks_title!t]", "[thanks_line_2!t]"),\
+    ("[thanks_title!t]", "[thanks_line_3!t]"),\
+    ("[thanks_title!t]", "[thanks_line_4!t]"),\
+    ("[thanks_title!t]", "[thanks_line_5!t]"),\
+    ("[thanks_title!t]", "[thanks_line_6!t]"),\
+    ("[thanks_title!t]", "[thanks_line_7!t]"),\
+    ("[team_title!t]", "[team_line_1!t]"),\
+    ("[team_title!t]", "[team_line_2!t]"),\
+    ("[team_title!t]", "[team_line_3!t]"),\
+    ("[team_title!t]", "[team_line_4!t]"),\
+    ("[team_title!t]", "[team_line_5!t]"),\
+    ("[team_title!t]", "[team_line_6!t]"),\
+    ("[team_title!t]", "[team_line_7!t]"),\
+    ("[team_title!t]", "[team_line_8!t]"),\
+    ("[team_title!t]", "[team_line_9!t]"),\
+    ("[team_title!t]", "[team_line_10!t]"),\
+    ("[authors_title!t]", "[authors_line_1!t]"),\
+    ("[authors_title!t]", "[authors_line_2!t]"),\
+    ("[authors_title!t]", "[authors_line_3!t]"),\
+    ("[authors_title!t]", "[authors_line_4!t]"),\
+    ("[partners_title!t]", "[partners_line_1!t]"),\
+    ("[partners_title!t]", "[partners_line_2!t]")
+
 
     # Šukańnie
     credits_s = "{size=80}Šukańnie Fest\n\n"
